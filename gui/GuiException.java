@@ -14,10 +14,10 @@ public class GuiException {
 	public static void loeschen(){
 		if (JOptionPane.showConfirmDialog(null, "Wollen Sie den Datensatz wirklich löschen?", "Achtung!",
 		        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-		    // yes option
+		    // TODO yes option
 			
 		} else {
-		    // no option
+		    // TODO no option
 			
 		}
 	

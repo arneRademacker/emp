@@ -56,7 +56,7 @@ public class startwindow {
                 		panel1.add(t1Name);
                 		t1Name.setBounds(100, 28, 232, 23);
                 		t1Name.setEditable(false);
-//                		t1Name.setText(getName);
+//              		t1Name.setText(Name); TODO add variable
                 	}
                 	{
                 		l1Vorname = new JLabel();
@@ -69,7 +69,7 @@ public class startwindow {
                 		panel1.add(t1Vorname);
                 		t1Vorname.setBounds(100, 82, 232, 24);
                 		t1Vorname.setEditable(false);
-//                		t1Vorname.setText(getVorname);
+//                		t1Vorname.setText(getVorname); TODO add variable
                 	}
                 	{
                 		l1Email = new JLabel();
@@ -82,7 +82,7 @@ public class startwindow {
                 		panel1.add(t1Email);
                 		t1Email.setBounds(100, 141, 232, 24);
                 		t1Email.setEditable(false);
-//                		t1Email.setText(getEmail);
+//                		t1Email.setText(Email); TODO add variable
                 	}
                 	{
                 		bDatensatzDavor = new JButton();
@@ -117,7 +117,7 @@ public class startwindow {
                 		panel1.add(t1ID);
                 		t1ID.setBounds(650, 34, 58, 23);
                 		t1ID.setEditable(false);
-//                		t1ID.setText();
+//                		t1ID.setText(); TODO add variable
                 	}
                 	{
                 		bLetzterDS = new JButton();
@@ -228,32 +228,43 @@ public class startwindow {
         
 
 		private static void bDatensatzDavorActionPerformed(ActionEvent evt) {
-        	GuiException.letzterDS();
+//        	TODO add your code
+			GuiException.letzterDS();
+//			go to the ID before
         }
         
         private static void bNaechsterDatensatzActionPerformed(ActionEvent evt) {
+//        	TODO add your code
         	GuiException.letzterDS();
+//        	go to the next ID
         }
         
         private static void bErsterDSActionPerformed(ActionEvent evt) {
-//        	go to first ID
+//			TODO add your code
+        	//          go to the first ID
         }
         
         private static void bLetzterDSActionPerformed(ActionEvent evt) {
-//        	go to last ID
+//			TODO add your code
+        	//        	go to the last ID
         }
         
         private static void bloeschenActionPerformed(ActionEvent evt) {
+//			TODO add your code
         	GuiException.loeschen();
+//        	delete the data
         }
         
         private static void bsearchVornameActionPerformed(ActionEvent evt) {
+//			TODO add your code
         	GuiException.suchVorname();
-        	//TODO add your code for bsearchVorname.actionPerformed
+//			seeking the first names
         }    
+        
         private static void bsearchNameActionPerformed(ActionEvent evt) {
         	GuiException.suchNachname();
-        	//TODO add your code for bsearchName.actionPerformed
+        	//TODO add your code 
+//        	seeking the last names
         }
 
 }
