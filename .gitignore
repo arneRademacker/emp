@@ -1,5 +1,7 @@
 # Class files
 
-/bin/
-/gen/
+/eclipse/bin/
+/eclipse/gen/
 /EMP.Database/build/
+/EMP.Database/bin/
+/EMP.Database/gen/
