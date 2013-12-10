@@ -1,5 +1,5 @@
-# Java files
+# Class files
 
 /bin/
 /gen/
-
+/EMP.Database/build/
