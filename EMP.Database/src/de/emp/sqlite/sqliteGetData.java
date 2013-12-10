@@ -1,6 +1,6 @@
 package de.emp.sqlite;
 
-import java.sql.*;
+import java.sql.ResultSet;
 
 public class sqliteGetData {
 

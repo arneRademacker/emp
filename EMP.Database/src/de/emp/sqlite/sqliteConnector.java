@@ -1,28 +1,25 @@
 package de.emp.sqlite;
 
-import java.sql.*;
-
-import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class sqliteConnector {
 
-	private Connection con;
 	public static Statement st;
 
 	public static Connection SqliteConnect() {
+		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Connection con = DriverManager
+			con = DriverManager
 					.getConnection("jdbc:sqlite:..\\EMP.Database\\src\\de\\emp\\sqlite\\emp.sqlite");
 
 			st = con.createStatement();
-
-			return null;
-
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, ex);
-			return null;
+			ex.printStackTrace();
 		}
+		return con;
 
 	}
 }

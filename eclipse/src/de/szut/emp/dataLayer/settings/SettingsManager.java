@@ -2,7 +2,7 @@ package de.szut.emp.dataLayer.settings;
 
 public class SettingsManager {
 
-	public static final SettingsManager INSTANCE = new SettingsManager();
+	private static final SettingsManager INSTANCE = new SettingsManager();
 
 	public static final SettingsManager getInstance() {
 		return INSTANCE;
@@ -12,11 +12,11 @@ public class SettingsManager {
 
 	}
 
-	enum PersistenceType {
+	public enum PersistenceType {
 		UNSET, SQLITE, XML
 	}
 
-	private PersistenceType persitenceType = PersistenceType.UNSET;
+	public PersistenceType persitenceType = PersistenceType.SQLITE;
 
 	public PersistenceType getPersistenceType() {
 		return persitenceType;

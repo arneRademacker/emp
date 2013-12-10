@@ -6,7 +6,7 @@ import de.szut.emp.businessObjects.IEmailContact;
 
 public interface IEmailContactDao {
 
-	public IEmailContact create();
+	public void create(IEmailContact emailContact);
 
 	public void delete(IEmailContact emailContact);
 

@@ -4,10 +4,10 @@ import de.szut.emp.businessObjects.IEmailContact;
 
 public class EmailContact implements IEmailContact {
 
-	private int id;
-	private String vorname;
-	private String nachname;
-	private String email;
+	private int id = -1;
+	private String vorname = null;
+	private String nachname = null;
+	private String email = null;
 
 	public void setId(int id) {
 		this.id = id;
@@ -15,44 +15,37 @@ public class EmailContact implements IEmailContact {
 
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.id;
 	}
 
 	@Override
 	public String getVorname() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.vorname;
 	}
 
 	@Override
 	public void setVorname(String vorname) {
-		// TODO Auto-generated method stub
-
+		this.vorname = vorname;
 	}
 
 	@Override
 	public String getNachname() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.nachname;
 	}
 
 	@Override
 	public void setNachname(String nachname) {
-		// TODO Auto-generated method stub
-
+		this.nachname = nachname;
 	}
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.email;
 	}
 
 	@Override
 	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-
+		this.email = email;
 	}
 
 }

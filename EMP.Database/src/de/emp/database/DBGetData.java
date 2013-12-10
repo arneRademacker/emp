@@ -1,17 +1,15 @@
 package de.emp.database;
 
 import java.sql.ResultSet;
-import java.sql.*;
 
 public class DBGetData {
 
-	private Statement st;
 	private ResultSet rs;
+	private String query= "SELECT * FROM adressen";
 
 	public void getData() {
 
 		try {
-			String query = "SELECT * FROM adressen";
 			rs = DBConnect.st.executeQuery(query);
 			System.out.println("Records from Database");
 			while (rs.next()) {
@@ -23,8 +21,7 @@ public class DBGetData {
 			}
 
 		} catch (Exception ex) {
-
-			System.out.println(ex);
+			ex.printStackTrace();
 		}
 
 	}

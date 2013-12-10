@@ -8,9 +8,8 @@ import de.szut.emp.dataLayer.dataAccessObjects.IEmailContactDao;
 public class EmailContactDaoXml implements IEmailContactDao {
 
 	@Override
-	public IEmailContact create() {
+	public void create(IEmailContact emailContact) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

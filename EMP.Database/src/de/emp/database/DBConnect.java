@@ -1,6 +1,8 @@
 package de.emp.database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class DBConnect {
 
@@ -16,7 +18,7 @@ public class DBConnect {
 			st = con.createStatement();
 
 		} catch (Exception ex) {
-			System.out.println("Error: " + ex);
+			ex.printStackTrace();
 		}
 
 	}
