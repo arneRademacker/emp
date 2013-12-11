@@ -5,6 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+
+import de.szut.emp.businessObjects.IEmailContact;
+import de.szut.emp.dataLayer.DataLayerManager;
+import de.szut.emp.dataLayer.dataAccessObjects.IEmailContactDao;
+import de.szut.emp.dataLayer.settings.SettingsManager;
+
 public class MainWindow {
 	static private JLabel l2Name;
 	static private JTextField t2Name;
@@ -29,11 +35,21 @@ public class MainWindow {
 	static private JTextField t2Vorname;
 	static private JLabel l2Vorname;
 
-	public static void main(String[] args) {
+	private IEmailContactDao emailContactDao;
+	
+	private IEmailContact currentEmailContact;
+
+	public void init() {
 		JFrame fenster = new JFrame("Email-Verwaltung");
 		fenster.setSize(800, 600);
 		fenster.setLocationRelativeTo(null);
 		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		if (SettingsManager.getInstance().getPersistenceType() == SettingsManager.PersistenceType.UNSET) {
+			SettingsManager.getInstance().setPersistenceType(SettingsManager.PersistenceType.SQLITE);
+		}
+		emailContactDao = DataLayerManager.getInstance().getDataLayer().getEmailContactDao();
+		currentEmailContact = emailContactDao.first();
 
 		JTabbedPane tabLeiste = new JTabbedPane();
 
@@ -51,7 +67,7 @@ public class MainWindow {
 				panel1.add(t1Name);
 				t1Name.setBounds(100, 28, 232, 23);
 				t1Name.setEditable(false);
-				// t1Name.setText(Name); TODO add variable
+				t1Name.setText(currentEmailContact.getNachname()); //TODO add variable
 			}
 			{
 				l1Vorname = new JLabel();
@@ -64,7 +80,7 @@ public class MainWindow {
 				panel1.add(t1Vorname);
 				t1Vorname.setBounds(100, 82, 232, 24);
 				t1Vorname.setEditable(false);
-				// t1Vorname.setText(getVorname); TODO add variable
+				t1Vorname.setText(currentEmailContact.getVorname()); //TODO add variable
 			}
 			{
 				l1Email = new JLabel();
@@ -77,7 +93,7 @@ public class MainWindow {
 				panel1.add(t1Email);
 				t1Email.setBounds(100, 141, 232, 24);
 				t1Email.setEditable(false);
-				// t1Email.setText(Email); TODO add variable
+				t1Email.setText(currentEmailContact.getEmail()); //TODO add variable
 			}
 			{
 				bDatensatzDavor = new JButton();
@@ -112,7 +128,7 @@ public class MainWindow {
 				panel1.add(t1ID);
 				t1ID.setBounds(650, 34, 58, 23);
 				t1ID.setEditable(false);
-				// t1ID.setText(); TODO add variable
+				t1ID.setText(String.valueOf(currentEmailContact.getId())); //TODO add variable
 			}
 			{
 				bLetzterDS = new JButton();
@@ -221,44 +237,77 @@ public class MainWindow {
 		fenster.setVisible(true);
 	}
 
-	private static void bDatensatzDavorActionPerformed(ActionEvent evt) {
+	private void bDatensatzDavorActionPerformed(ActionEvent evt) {
 		// TODO add your code
-		GuiException.letzterDS();
+		letzterDS();
 		// go to the ID before
 	}
 
-	private static void bNaechsterDatensatzActionPerformed(ActionEvent evt) {
+	private void bNaechsterDatensatzActionPerformed(ActionEvent evt) {
 		// TODO add your code
-		GuiException.letzterDS();
+		letzterDS();
 		// go to the next ID
 	}
 
-	private static void bErsterDSActionPerformed(ActionEvent evt) {
+	private void bErsterDSActionPerformed(ActionEvent evt) {
 		// TODO add your code
 		// go to the first ID
 	}
 
-	private static void bLetzterDSActionPerformed(ActionEvent evt) {
+	private void bLetzterDSActionPerformed(ActionEvent evt) {
 		// TODO add your code
 		// go to the last ID
 	}
 
-	private static void bloeschenActionPerformed(ActionEvent evt) {
+	private void bloeschenActionPerformed(ActionEvent evt) {
 		// TODO add your code
-		GuiException.loeschen();
+		loeschen(currentEmailContact);
 		// delete the data
 	}
 
-	private static void bsearchVornameActionPerformed(ActionEvent evt) {
+	private void bsearchVornameActionPerformed(ActionEvent evt) {
 		// TODO add your code
-		GuiException.suchVorname();
+		suchVorname();
 		// seeking the first names
 	}
 
-	private static void bsearchNameActionPerformed(ActionEvent evt) {
+	private void bsearchNameActionPerformed(ActionEvent evt) {
 		// TODO add your code
-		GuiException.suchNachname();
+		suchNachname();
 		// seeking the last names
+	}
+
+	public static void letzterDS() {
+		JOptionPane.showMessageDialog(null,
+				"Kein weiterer Datensatz vorhanden!", "Logischer Fehler",
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static void loeschen(IEmailContact emailContact) {
+		if (JOptionPane.showConfirmDialog(null,
+				"Wollen Sie den Datensatz wirklich löschen?", "Achtung!",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+			// TODO yes option
+
+		} else {
+			// TODO no option
+
+		}
+
+	}
+
+	public static void suchVorname() {
+		String suchVorname = JOptionPane.showInputDialog(null,
+				" Bitte geben Sie den Vornamen ein: ", "Vornamensuche",
+				JOptionPane.PLAIN_MESSAGE);
+		System.out.println(suchVorname);
+	}
+
+	public static void suchNachname() {
+		String suchNachname = JOptionPane.showInputDialog(null,
+				"Bitte geben Sie den Nachnamen ein: ", "Nachnamensuche",
+				JOptionPane.PLAIN_MESSAGE);
+		System.out.println(suchNachname);
 	}
 
 }
