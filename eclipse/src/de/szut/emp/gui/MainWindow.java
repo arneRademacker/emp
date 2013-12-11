@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class startwindow {
+public class MainWindow {
 	static private JLabel l2Name;
 	static private JTextField t2Name;
 	static private JLabel l2Email;
@@ -82,7 +82,7 @@ public class startwindow {
 			{
 				bDatensatzDavor = new JButton();
 				panel1.add(bDatensatzDavor);
-				bDatensatzDavor.setText("<<< Vorheriger Datensatz");
+				bDatensatzDavor.setText("<<< Vorheriger");
 				bDatensatzDavor.setBounds(12, 235, 189, 23);
 				bDatensatzDavor.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -93,7 +93,7 @@ public class startwindow {
 			{
 				bNaechsterDatensatz = new JButton();
 				panel1.add(bNaechsterDatensatz);
-				bNaechsterDatensatz.setText("N�chster Datensatz >>>");
+				bNaechsterDatensatz.setText("Nächster >>>");
 				bNaechsterDatensatz.setBounds(228, 235, 213, 23);
 				bNaechsterDatensatz.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -117,7 +117,7 @@ public class startwindow {
 			{
 				bLetzterDS = new JButton();
 				panel1.add(bLetzterDS);
-				bLetzterDS.setText("Letzter Datensatz >>>>>");
+				bLetzterDS.setText("Letzter Datensatz |>>");
 				bLetzterDS.setBounds(228, 277, 213, 23);
 				bLetzterDS.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -128,7 +128,7 @@ public class startwindow {
 			{
 				bErsterDS = new JButton();
 				panel1.add(bErsterDS);
-				bErsterDS.setText("<<<<< Erster Datensatz");
+				bErsterDS.setText("<<| Erster Datensatz");
 				bErsterDS.setBounds(12, 277, 189, 23);
 				bErsterDS.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -139,7 +139,7 @@ public class startwindow {
 			{
 				bloeschen = new JButton();
 				panel1.add(bloeschen);
-				bloeschen.setText("Datensatz l�schen");
+				bloeschen.setText("Datensatz löschen");
 				bloeschen.setBounds(12, 491, 189, 23);
 				bloeschen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -150,7 +150,7 @@ public class startwindow {
 			{
 				bsearchVorname = new JButton();
 				panel1.add(bsearchVorname);
-				bsearchVorname.setText("Vorname suchen");
+				bsearchVorname.setText("Suchen...");
 				bsearchVorname.setBounds(368, 82, 141, 21);
 				bsearchVorname.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -161,7 +161,7 @@ public class startwindow {
 			{
 				bsearchName = new JButton();
 				panel1.add(bsearchName);
-				bsearchName.setText("Name suchen");
+				bsearchName.setText("Suchen...");
 				bsearchName.setBounds(368, 28, 141, 23);
 				bsearchName.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -174,7 +174,7 @@ public class startwindow {
 		}
 		{
 			JPanel panel2 = new JPanel();
-			tabLeiste.addTab("Kontakt hinzuf�gen", null, panel2, null);
+			tabLeiste.addTab("Kontakt hinzufügen", null, panel2, null);
 			panel2.setLayout(null);
 			{
 				l2Name = new JLabel();
@@ -256,8 +256,8 @@ public class startwindow {
 	}
 
 	private static void bsearchNameActionPerformed(ActionEvent evt) {
-		GuiException.suchNachname();
 		// TODO add your code
+		GuiException.suchNachname();
 		// seeking the last names
 	}
 
