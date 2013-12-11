@@ -23,9 +23,10 @@ public class DataLayerManager {
 	public IDataLayer getDataLayer() {
 		PersistenceType persistenceType = SettingsManager.getInstance()
 				.getPersistenceType();
-		if (dataLayer != null && usedPersistenceType != persistenceType) {
-			dataLayer.close();
-		}
+		// TODO close opened data layers
+//		if (dataLayer != null && usedPersistenceType != persistenceType) {
+//		
+//		}
 
 		if (dataLayer == null || usedPersistenceType != persistenceType) {
 			switch (persistenceType) {

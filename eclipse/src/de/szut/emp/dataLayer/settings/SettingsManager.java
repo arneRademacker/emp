@@ -16,7 +16,7 @@ public class SettingsManager {
 		UNSET, SQLITE, XML
 	}
 
-	private PersistenceType persitenceType = PersistenceType.SQLITE;
+	public PersistenceType persitenceType = PersistenceType.SQLITE;
 
 	public PersistenceType getPersistenceType() {
 		return persitenceType;

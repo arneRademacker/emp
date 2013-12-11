@@ -1,9 +1,19 @@
 package de.szut.emp.dataLayer.dataAccessObjects.xml;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -12,6 +22,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import de.szut.emp.businessObjects.IEmailContact;
 import de.szut.emp.dataLayer.dataAccessObjects.IEmailContactDao;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class EmailContactDaoXml implements IEmailContactDao {
 
@@ -32,8 +45,48 @@ public class EmailContactDaoXml implements IEmailContactDao {
 
 	@Override
 	public void create(IEmailContact emailContact) {
-		// TODO Auto-generated method stub
-	}
+			
+	        try {
+	            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+	            Document doc = docBuilder.newDocument();
+	 
+	            Element rootElement = doc.createElement("emp");
+	            doc.appendChild(rootElement);
+	 
+	            // letter
+	            Element letter = doc.createElement("contacts");
+	            rootElement.appendChild(letter);
+	 
+	            // name
+	            Element surname = doc.createElement("surname");
+	            surname.appendChild(doc.createTextNode(""));
+	            letter.appendChild(surname);
+	 
+	            // street
+	            Element name = doc.createElement("name");
+	            name.appendChild(doc.createTextNode(""));
+	            letter.appendChild(name);
+	            
+	            // street
+	            Element email = doc.createElement("email");
+	            email.appendChild(doc.createTextNode(""));
+	            letter.appendChild(email);
+	 
+	            // als XML schreiben
+	            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	            Transformer transformer = transformerFactory.newTransformer();
+	            DOMSource source = new DOMSource(doc);
+	            StreamResult result = new StreamResult(new File("../eclipse/assets"));
+	            transformer.transform(source, result);
+	 
+	        } catch (ParserConfigurationException pce) {
+	            pce.printStackTrace();
+	        } catch (TransformerException tfe) {
+	            tfe.printStackTrace();
+	        }
+	    }
+
 
 	@Override
 	public void delete(IEmailContact emailContact) {
