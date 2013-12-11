@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import de.szut.emp.businessObjects.IEmailContact;
 import de.szut.emp.dataLayer.DataLayerManager;
+import de.szut.emp.dataLayer.businessObjects.EmailContact;
 import de.szut.emp.dataLayer.dataAccessObjects.IEmailContactDao;
 import de.szut.emp.dataLayer.settings.SettingsManager;
 
@@ -67,7 +68,6 @@ public class MainWindow {
 				panel1.add(t1Name);
 				t1Name.setBounds(100, 28, 232, 23);
 				t1Name.setEditable(false);
-				t1Name.setText(currentEmailContact.getNachname()); //TODO add variable
 			}
 			{
 				l1Vorname = new JLabel();
@@ -80,7 +80,6 @@ public class MainWindow {
 				panel1.add(t1Vorname);
 				t1Vorname.setBounds(100, 82, 232, 24);
 				t1Vorname.setEditable(false);
-				t1Vorname.setText(currentEmailContact.getVorname()); //TODO add variable
 			}
 			{
 				l1Email = new JLabel();
@@ -93,7 +92,6 @@ public class MainWindow {
 				panel1.add(t1Email);
 				t1Email.setBounds(100, 141, 232, 24);
 				t1Email.setEditable(false);
-				t1Email.setText(currentEmailContact.getEmail()); //TODO add variable
 			}
 			{
 				bDatensatzDavor = new JButton();
@@ -128,7 +126,6 @@ public class MainWindow {
 				panel1.add(t1ID);
 				t1ID.setBounds(650, 34, 58, 23);
 				t1ID.setEditable(false);
-				t1ID.setText(String.valueOf(currentEmailContact.getId())); //TODO add variable
 			}
 			{
 				bLetzterDS = new JButton();
@@ -230,84 +227,121 @@ public class MainWindow {
 				panel2.add(bSpeichern);
 				bSpeichern.setText("Kontakt speichern");
 				bSpeichern.setBounds(232, 212, 169, 28);
+				bSpeichern.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						baddContactActionPerformed(evt);
+					}
+				});
 			}
 		}
 
 		fenster.add(tabLeiste);
 		fenster.setVisible(true);
+
+		update();
+	}
+
+	private void baddContactActionPerformed(ActionEvent evt) {
+		IEmailContact emailContact = new EmailContact();
+		emailContact.setVorname(t2Vorname.getText());
+		emailContact.setNachname(t2Name.getText());
+		emailContact.setEmail(t2Email.getText());
+
+		emailContactDao.create(emailContact);
+		currentEmailContact = emailContact;
+		update();
 	}
 
 	private void bDatensatzDavorActionPerformed(ActionEvent evt) {
-		// TODO add your code
-		letzterDS();
-		// go to the ID before
+		IEmailContact previousEmailContact = emailContactDao.previous(currentEmailContact);
+		if (previousEmailContact != null) {
+			currentEmailContact = previousEmailContact;
+			update();
+		} else {
+			letzterDS();
+		}
 	}
 
 	private void bNaechsterDatensatzActionPerformed(ActionEvent evt) {
-		// TODO add your code
-		letzterDS();
-		// go to the next ID
+		IEmailContact nextEmailContact = emailContactDao.next(currentEmailContact);
+		if (nextEmailContact != null) {
+			currentEmailContact = nextEmailContact;
+			update();
+		} else {
+			letzterDS();
+		}
 	}
 
 	private void bErsterDSActionPerformed(ActionEvent evt) {
-		// TODO add your code
-		// go to the first ID
+		IEmailContact firstEmailContact = emailContactDao.first();
+		if (firstEmailContact != null) {
+			currentEmailContact = firstEmailContact;
+			update();
+		} else {
+			letzterDS();
+		}
 	}
 
 	private void bLetzterDSActionPerformed(ActionEvent evt) {
-		// TODO add your code
-		// go to the last ID
+		IEmailContact lastEmailContact = emailContactDao.last();
+		if (lastEmailContact != null) {
+			currentEmailContact = lastEmailContact;
+			update();
+		} else {
+			letzterDS();
+		}
 	}
 
 	private void bloeschenActionPerformed(ActionEvent evt) {
-		// TODO add your code
 		loeschen(currentEmailContact);
-		// delete the data
 	}
 
 	private void bsearchVornameActionPerformed(ActionEvent evt) {
-		// TODO add your code
 		suchVorname();
-		// seeking the first names
 	}
 
 	private void bsearchNameActionPerformed(ActionEvent evt) {
-		// TODO add your code
 		suchNachname();
-		// seeking the last names
 	}
 
-	public static void letzterDS() {
+	private void update() {
+		t1Name.setText(currentEmailContact.getNachname());
+		t1Vorname.setText(currentEmailContact.getVorname());
+		t1Email.setText(currentEmailContact.getEmail());
+		t1ID.setText(String.valueOf(currentEmailContact.getId()));
+	}
+
+	private void letzterDS() {
 		JOptionPane.showMessageDialog(null,
 				"Kein weiterer Datensatz vorhanden!", "Logischer Fehler",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
-	public static void loeschen(IEmailContact emailContact) {
+	private void loeschen(IEmailContact emailContact) {
 		if (JOptionPane.showConfirmDialog(null,
 				"Wollen Sie den Datensatz wirklich löschen?", "Achtung!",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-			// TODO yes option
-
-		} else {
-			// TODO no option
-
+			IEmailContact contactToDelete = currentEmailContact;
+			currentEmailContact = emailContactDao.previous(contactToDelete);
+			emailContactDao.delete(contactToDelete);
+			update();
 		}
-
 	}
 
-	public static void suchVorname() {
+	private void suchVorname() {
 		String suchVorname = JOptionPane.showInputDialog(null,
 				" Bitte geben Sie den Vornamen ein: ", "Vornamensuche",
 				JOptionPane.PLAIN_MESSAGE);
 		System.out.println(suchVorname);
+		// TODO actually perform search
 	}
 
-	public static void suchNachname() {
+	private void suchNachname() {
 		String suchNachname = JOptionPane.showInputDialog(null,
 				"Bitte geben Sie den Nachnamen ein: ", "Nachnamensuche",
 				JOptionPane.PLAIN_MESSAGE);
 		System.out.println(suchNachname);
+		// TODO actually perform search
 	}
 
 }
