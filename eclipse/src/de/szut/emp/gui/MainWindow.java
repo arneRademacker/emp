@@ -50,7 +50,6 @@ public class MainWindow {
 			SettingsManager.getInstance().setPersistenceType(SettingsManager.PersistenceType.SQLITE);
 		}
 		emailContactDao = DataLayerManager.getInstance().getDataLayer().getEmailContactDao();
-		currentEmailContact = emailContactDao.first();
 
 		JTabbedPane tabLeiste = new JTabbedPane();
 
@@ -238,7 +237,7 @@ public class MainWindow {
 		fenster.add(tabLeiste);
 		fenster.setVisible(true);
 
-		update();
+		updateUiWithContact(emailContactDao.first());
 	}
 
 	private void baddContactActionPerformed(ActionEvent evt) {
@@ -248,15 +247,13 @@ public class MainWindow {
 		emailContact.setEmail(t2Email.getText());
 
 		emailContactDao.create(emailContact);
-		currentEmailContact = emailContact;
-		update();
+		updateUiWithContact(emailContact);
 	}
 
 	private void bDatensatzDavorActionPerformed(ActionEvent evt) {
 		IEmailContact previousEmailContact = emailContactDao.previous(currentEmailContact);
 		if (previousEmailContact != null) {
-			currentEmailContact = previousEmailContact;
-			update();
+			updateUiWithContact(previousEmailContact);
 		} else {
 			letzterDS();
 		}
@@ -265,8 +262,7 @@ public class MainWindow {
 	private void bNaechsterDatensatzActionPerformed(ActionEvent evt) {
 		IEmailContact nextEmailContact = emailContactDao.next(currentEmailContact);
 		if (nextEmailContact != null) {
-			currentEmailContact = nextEmailContact;
-			update();
+			updateUiWithContact(nextEmailContact);
 		} else {
 			letzterDS();
 		}
@@ -275,8 +271,7 @@ public class MainWindow {
 	private void bErsterDSActionPerformed(ActionEvent evt) {
 		IEmailContact firstEmailContact = emailContactDao.first();
 		if (firstEmailContact != null) {
-			currentEmailContact = firstEmailContact;
-			update();
+			updateUiWithContact(firstEmailContact);
 		} else {
 			letzterDS();
 		}
@@ -285,8 +280,7 @@ public class MainWindow {
 	private void bLetzterDSActionPerformed(ActionEvent evt) {
 		IEmailContact lastEmailContact = emailContactDao.last();
 		if (lastEmailContact != null) {
-			currentEmailContact = lastEmailContact;
-			update();
+			updateUiWithContact(lastEmailContact);
 		} else {
 			letzterDS();
 		}
@@ -304,11 +298,12 @@ public class MainWindow {
 		suchNachname();
 	}
 
-	private void update() {
-		t1Name.setText(currentEmailContact.getNachname());
-		t1Vorname.setText(currentEmailContact.getVorname());
-		t1Email.setText(currentEmailContact.getEmail());
-		t1ID.setText(String.valueOf(currentEmailContact.getId()));
+	private void updateUiWithContact(IEmailContact emailContact) {
+		this.currentEmailContact = emailContact;
+		t1Name.setText(this.currentEmailContact.getNachname());
+		t1Vorname.setText(this.currentEmailContact.getVorname());
+		t1Email.setText(this.currentEmailContact.getEmail());
+		t1ID.setText(String.valueOf(this.currentEmailContact.getId()));
 	}
 
 	private void letzterDS() {
@@ -322,9 +317,9 @@ public class MainWindow {
 				"Wollen Sie den Datensatz wirklich löschen?", "Achtung!",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			IEmailContact contactToDelete = currentEmailContact;
-			currentEmailContact = emailContactDao.previous(contactToDelete);
+			IEmailContact contactToSelect = emailContactDao.previous(contactToDelete);
 			emailContactDao.delete(contactToDelete);
-			update();
+			updateUiWithContact(contactToSelect);
 		}
 	}
 

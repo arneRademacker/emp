@@ -44,7 +44,7 @@ public class EmailContactDaoSqlite implements IEmailContactDao {
 
 	@Override
 	public void create(IEmailContact emailContact) {
-		String query = "INSERT INTO addressen (vorname, nachname, email) VALUES ('"
+		String query = "INSERT INTO adressen (vorname, nachname, email) VALUES ('"
 				+ emailContact.getVorname()
 				+ "','"
 				+ emailContact.getNachname()
@@ -104,17 +104,16 @@ public class EmailContactDaoSqlite implements IEmailContactDao {
 	public IEmailContact next(IEmailContact currentEmailContact) {
 		List<IEmailContact> emailContacts = select();
 		int currentIndex = emailContacts.indexOf(currentEmailContact);
-		if (++currentIndex >= emailContacts.size()) {
-			currentIndex = 0;
-		}
-		IEmailContact nextContact;
-		emailContacts.get(currentIndex + 1);
-		return null;
+		currentIndex = ++currentIndex % emailContacts.size();
+		return emailContacts.get(currentIndex);
 	}
 
 	@Override
 	public IEmailContact previous(IEmailContact currentEmailContact) {
-		return null;
+		List<IEmailContact> emailContacts = select();
+		int currentIndex = emailContacts.indexOf(currentEmailContact);
+		currentIndex = (currentIndex + (emailContacts.size() - 1)) % emailContacts.size();
+		return emailContacts.get(currentIndex);
 	}
 
 	@Override

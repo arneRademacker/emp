@@ -48,4 +48,12 @@ public class EmailContact implements IEmailContact {
 		this.email = email;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof EmailContact && ((EmailContact) obj).getId() == this.getId()) {
+			return true;
+		}
+		return super.equals(obj);
+	}
+
 }
