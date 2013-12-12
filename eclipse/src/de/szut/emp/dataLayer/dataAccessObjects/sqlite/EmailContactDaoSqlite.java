@@ -102,7 +102,13 @@ public class EmailContactDaoSqlite implements IEmailContactDao {
 
 	@Override
 	public IEmailContact next(IEmailContact currentEmailContact) {
-		select();
+		List<IEmailContact> emailContacts = select();
+		int currentIndex = emailContacts.indexOf(currentEmailContact);
+		if (++currentIndex >= emailContacts.size()) {
+			currentIndex = 0;
+		}
+		IEmailContact nextContact;
+		emailContacts.get(currentIndex + 1);
 		return null;
 	}
 
