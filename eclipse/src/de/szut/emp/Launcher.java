@@ -6,7 +6,7 @@ import de.szut.emp.gui.MainWindow;
 public class Launcher {
 
 	public static void main(String[] args) {
-		SettingsManager.getInstance().setPersistenceType(SettingsManager.PersistenceType.SQLITE);
+		SettingsManager.getInstance().setPersistenceType(SettingsManager.PersistenceType.XML);
 		(new MainWindow()).init();
 	}
 }

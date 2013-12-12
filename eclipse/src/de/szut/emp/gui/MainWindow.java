@@ -11,30 +11,34 @@ import de.szut.emp.dataLayer.DataLayerManager;
 import de.szut.emp.dataLayer.businessObjects.EmailContact;
 import de.szut.emp.dataLayer.dataAccessObjects.IEmailContactDao;
 import de.szut.emp.dataLayer.settings.SettingsManager;
+import de.szut.emp.exceptions.NoEmailContactFoundException;
+import de.szut.emp.exceptions.NoNextEmailContactFoundException;
+import de.szut.emp.exceptions.NoPreviousEmailFoundException;
 
 public class MainWindow {
-	static private JLabel l2Name;
-	static private JTextField t2Name;
-	static private JLabel l2Email;
-	static private JLabel l1Vorname;
-	static private JLabel l1Email;
-	static private JButton bErsterDS;
-	static private JButton bLetzterDS;
-	static private JTextField t1ID;
-	static private JLabel l1ID;
-	static private JButton bNaechsterDatensatz;
-	static private JButton bDatensatzDavor;
-	static private JTextField t1Email;
-	static private JTextField t1Vorname;
-	static private JButton bsearchName;
-	static private JButton bsearchVorname;
-	static private JButton bloeschen;
-	static private JTextField t1Name;
-	static private JLabel l1Name;
-	static private JButton bSpeichern;
-	static private JTextField t2Email;
-	static private JTextField t2Vorname;
-	static private JLabel l2Vorname;
+	private JLabel l2Name;
+	private JTextField t2Name;
+	private JLabel l2Email;
+	private JLabel l1Vorname;
+	private JLabel l1Email;
+	private JButton bErsterDS;
+	private JButton bLetzterDS;
+	private JTextField t1ID;
+	private JLabel l1ID;
+	private JButton bNaechsterDatensatz;
+	private JButton bDatensatzDavor;
+	private JTextField t1Email;
+	private JTextField t1Vorname;
+	private JButton bsearchName;
+	private JButton bsearchVorname;
+	private JButton bloeschen;
+	private JTextField t1Name;
+	private JLabel l1Name;
+	private JButton bSpeichern;
+	private JTextField t2Email;
+	private JTextField t2Vorname;
+	private JLabel l2Vorname;
+	private JTabbedPane tabLeiste;
 
 	private IEmailContactDao emailContactDao;
 	
@@ -51,7 +55,7 @@ public class MainWindow {
 		}
 		emailContactDao = DataLayerManager.getInstance().getDataLayer().getEmailContactDao();
 
-		JTabbedPane tabLeiste = new JTabbedPane();
+		tabLeiste = new JTabbedPane();
 
 		{
 			JPanel panel1 = new JPanel();
@@ -237,52 +241,80 @@ public class MainWindow {
 		fenster.add(tabLeiste);
 		fenster.setVisible(true);
 
-		updateUiWithContact(emailContactDao.first());
+		try {
+			updateUiWithContact(emailContactDao.first());
+		} catch (NoEmailContactFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void baddContactActionPerformed(ActionEvent evt) {
 		IEmailContact emailContact = new EmailContact();
 		emailContact.setVorname(t2Vorname.getText());
+		t2Vorname.setText("");
 		emailContact.setNachname(t2Name.getText());
+		t2Name.setText("");
 		emailContact.setEmail(t2Email.getText());
+		t2Email.setText("");
 
 		emailContactDao.create(emailContact);
 		updateUiWithContact(emailContact);
+		tabLeiste.setSelectedIndex(0);
 	}
 
 	private void bDatensatzDavorActionPerformed(ActionEvent evt) {
-		IEmailContact previousEmailContact = emailContactDao.previous(currentEmailContact);
-		if (previousEmailContact != null) {
-			updateUiWithContact(previousEmailContact);
-		} else {
-			letzterDS();
+		IEmailContact previousEmailContact;
+		try {
+			previousEmailContact = emailContactDao.previous(currentEmailContact);
+			if (previousEmailContact != null) {
+				updateUiWithContact(previousEmailContact);
+			} else {
+				letzterDS();
+			}
+		} catch (NoPreviousEmailFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void bNaechsterDatensatzActionPerformed(ActionEvent evt) {
-		IEmailContact nextEmailContact = emailContactDao.next(currentEmailContact);
-		if (nextEmailContact != null) {
-			updateUiWithContact(nextEmailContact);
-		} else {
-			letzterDS();
+		IEmailContact nextEmailContact;
+		try {
+			nextEmailContact = emailContactDao.next(currentEmailContact);
+			if (nextEmailContact != null) {
+				updateUiWithContact(nextEmailContact);
+			} else {
+				letzterDS();
+			}
+		} catch (NoNextEmailContactFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void bErsterDSActionPerformed(ActionEvent evt) {
-		IEmailContact firstEmailContact = emailContactDao.first();
-		if (firstEmailContact != null) {
-			updateUiWithContact(firstEmailContact);
-		} else {
-			letzterDS();
+		IEmailContact firstEmailContact;
+		try {
+			firstEmailContact = emailContactDao.first();
+			if (firstEmailContact != null) {
+				updateUiWithContact(firstEmailContact);
+			} else {
+				letzterDS();
+			}
+		} catch (NoEmailContactFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void bLetzterDSActionPerformed(ActionEvent evt) {
-		IEmailContact lastEmailContact = emailContactDao.last();
-		if (lastEmailContact != null) {
-			updateUiWithContact(lastEmailContact);
-		} else {
-			letzterDS();
+		IEmailContact lastEmailContact;
+		try {
+			lastEmailContact = emailContactDao.last();
+			if (lastEmailContact != null) {
+				updateUiWithContact(lastEmailContact);
+			} else {
+				letzterDS();
+			}
+		} catch (NoEmailContactFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -299,11 +331,13 @@ public class MainWindow {
 	}
 
 	private void updateUiWithContact(IEmailContact emailContact) {
-		this.currentEmailContact = emailContact;
-		t1Name.setText(this.currentEmailContact.getNachname());
-		t1Vorname.setText(this.currentEmailContact.getVorname());
-		t1Email.setText(this.currentEmailContact.getEmail());
-		t1ID.setText(String.valueOf(this.currentEmailContact.getId()));
+		if (emailContact != null) {
+			this.currentEmailContact = emailContact;
+			t1Name.setText(this.currentEmailContact.getNachname());
+			t1Vorname.setText(this.currentEmailContact.getVorname());
+			t1Email.setText(this.currentEmailContact.getEmail());
+			t1ID.setText(String.valueOf(this.currentEmailContact.getId()));
+		}
 	}
 
 	private void letzterDS() {
@@ -317,7 +351,12 @@ public class MainWindow {
 				"Wollen Sie den Datensatz wirklich löschen?", "Achtung!",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			IEmailContact contactToDelete = currentEmailContact;
-			IEmailContact contactToSelect = emailContactDao.previous(contactToDelete);
+			IEmailContact contactToSelect = null;
+			try {
+				contactToSelect = emailContactDao.previous(contactToDelete);
+			} catch (NoPreviousEmailFoundException e) {
+				e.printStackTrace();
+			}
 			emailContactDao.delete(contactToDelete);
 			updateUiWithContact(contactToSelect);
 		}

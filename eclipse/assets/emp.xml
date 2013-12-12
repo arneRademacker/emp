@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<contacts>
-	<contact>
-		<surname>
-			Remmers
-		</surname>
-		<name>
-			Robin
-		</name>
-		<email>
-			robin.remmers@xyz.de
-		</email>
-	</contact>
-</contacts>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><contacts><contact><id>0</id><name>Arne</name><surname>Rademacker</surname><email>arne@muahaha.de</email></contact><contact><id>1</id><name>Robin</name><surname>Remmers</surname><email>robin.remmers@test.de</email></contact><contact><id>2</id><name>Tim</name><surname>Haß</surname><email>tim.haß@xyz.com</email></contact><contact><id>3</id><name>Kevin</name><surname>Winter</surname><email>kw@short.de</email></contact></contacts>
