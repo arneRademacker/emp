@@ -1,9 +1,6 @@
 package de.szut.emp.dataLayer.dataAccessObjects.xml;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,11 +12,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
-
 import de.szut.emp.businessObjects.IEmailContact;
 import de.szut.emp.dataLayer.dataAccessObjects.IEmailContactDao;
 
@@ -29,18 +21,18 @@ import org.w3c.dom.Element;
 public class EmailContactDaoXml implements IEmailContactDao {
 
 	public EmailContactDaoXml() {
-		try {
-			XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-			FileReader reader = new FileReader("emp.xml");
+//		try {
+//			XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+//			FileReader reader = new FileReader("emp.xml");
 			// TODO implement content handler
-			xmlReader.parse(new InputSource(reader));
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//			xmlReader.parse(new InputSource(reader));
+//		} catch (SAXException e) {
+//			e.printStackTrace();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
@@ -51,33 +43,33 @@ public class EmailContactDaoXml implements IEmailContactDao {
 	            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 	            Document doc = docBuilder.newDocument();
 	 
-	            Element rootElement = doc.createElement("emp");
+	            Element rootElement = doc.createElement("contacts");
 	            doc.appendChild(rootElement);
 	 
 	            // letter
-	            Element letter = doc.createElement("contacts");
+	            Element letter = doc.createElement("contact");
 	            rootElement.appendChild(letter);
 	 
 	            // name
 	            Element surname = doc.createElement("surname");
-	            surname.appendChild(doc.createTextNode(""));
+	            surname.appendChild(doc.createTextNode(emailContact.getNachname()));
 	            letter.appendChild(surname);
 	 
 	            // street
 	            Element name = doc.createElement("name");
-	            name.appendChild(doc.createTextNode(""));
+	            name.appendChild(doc.createTextNode(emailContact.getVorname()));
 	            letter.appendChild(name);
 	            
 	            // street
 	            Element email = doc.createElement("email");
-	            email.appendChild(doc.createTextNode(""));
+	            email.appendChild(doc.createTextNode(emailContact.getEmail()));
 	            letter.appendChild(email);
 	 
 	            // als XML schreiben
 	            TransformerFactory transformerFactory = TransformerFactory.newInstance();
 	            Transformer transformer = transformerFactory.newTransformer();
 	            DOMSource source = new DOMSource(doc);
-	            StreamResult result = new StreamResult(new File("../eclipse/assets"));
+	            StreamResult result = new StreamResult(new File("../eclipse/assets/test.xml"));
 	            transformer.transform(source, result);
 	 
 	        } catch (ParserConfigurationException pce) {

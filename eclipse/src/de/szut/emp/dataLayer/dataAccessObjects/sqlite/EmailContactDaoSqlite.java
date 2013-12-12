@@ -91,8 +91,7 @@ public class EmailContactDaoSqlite implements IEmailContactDao {
 		IEmailContact emailContact = null;
 		try {
 			queryResults = statement.executeQuery(query);
-			while (queryResults.next())
-			{
+			while (queryResults.next()) {
 				emailContact = emailContactFromSqlResult(queryResults);
 			}
 		} catch (SQLException e) {
@@ -103,6 +102,7 @@ public class EmailContactDaoSqlite implements IEmailContactDao {
 
 	@Override
 	public IEmailContact next(IEmailContact currentEmailContact) {
+		select();
 		return null;
 	}
 
