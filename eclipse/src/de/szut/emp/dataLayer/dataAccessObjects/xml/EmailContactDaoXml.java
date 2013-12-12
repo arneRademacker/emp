@@ -55,12 +55,12 @@ public class EmailContactDaoXml implements IEmailContactDao {
 	            surname.appendChild(doc.createTextNode(emailContact.getNachname()));
 	            letter.appendChild(surname);
 	 
-	            // street
+	            // name
 	            Element name = doc.createElement("name");
 	            name.appendChild(doc.createTextNode(emailContact.getVorname()));
 	            letter.appendChild(name);
 	            
-	            // street
+	            // email
 	            Element email = doc.createElement("email");
 	            email.appendChild(doc.createTextNode(emailContact.getEmail()));
 	            letter.appendChild(email);
