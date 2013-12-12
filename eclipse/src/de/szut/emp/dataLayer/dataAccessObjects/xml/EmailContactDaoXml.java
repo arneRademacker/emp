@@ -51,7 +51,7 @@ public class EmailContactDaoXml implements IEmailContactDao, ContentHandler {
 	public void loadFile() {
 		try {
 			inputSource = new InputSource(new FileReader(
-					"../eclipse/assets/emp.xml"));
+					"assets/emp.xml"));
 			xmlReader.setContentHandler(this);
 			xmlReader.parse(inputSource);
 		} catch (FileNotFoundException e) {
