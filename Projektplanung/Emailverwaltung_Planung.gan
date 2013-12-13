@@ -7,8 +7,8 @@ Robin, Arne, Sven, Kevin ,Tim]]></description>
         <field id="tpd5" name="Ende" width="21" order="2"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Ressource" width="52" order="0"/>
-        <field id="1" name="Rolle" width="47" order="1"/>
+        <field id="0" name="Ressource" width="50" order="0"/>
+        <field id="1" name="Rolle" width="49" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -92,20 +92,26 @@ Robin, Arne, Sven, Kevin ,Tim]]></description>
             <depend id="5" type="2" difference="0" hardness="Strong"/>
             <depend id="9" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="3" name="Programmierung Part 1" color="#8cb6ce" shape="1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1" meeting="false" start="2013-11-14" duration="15" complete="0" expand="true"/>
-        <task id="5" name="Programmierung Part 2" color="#8cb6ce" meeting="false" start="2013-11-14" duration="15" complete="0" expand="true"/>
-        <task id="9" name="Programmierung Part 3" color="#8cb6ce" shape="0,1,0,1,0,0,1,0,0,1,0,1,1,0,0,0" meeting="false" start="2013-11-14" duration="15" complete="0" expand="true"/>
-        <task id="11" name="Fortschrittsbesprechung" color="#8cb6ce" meeting="false" start="2013-12-05" duration="2" complete="0" expand="true">
+        <task id="3" name="Programmierung Part 1" color="#8cb6ce" shape="1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1" meeting="false" start="2013-11-14" duration="13" complete="0" expand="true">
+            <depend id="11" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="5" name="Programmierung Part 2" color="#8cb6ce" meeting="false" start="2013-11-14" duration="13" complete="0" expand="true">
+            <depend id="11" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="9" name="Programmierung Part 3" color="#8cb6ce" shape="0,1,0,1,0,0,1,0,0,1,0,1,1,0,0,0" meeting="false" start="2013-11-14" duration="13" complete="0" expand="true">
+            <depend id="11" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="11" name="Fortschrittsbesprechung" color="#8cb6ce" meeting="false" start="2013-12-03" duration="2" complete="0" expand="true">
             <depend id="21" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="21" name="Testen" color="#8cb6ce" meeting="false" start="2013-12-09" duration="2" complete="0" expand="true">
+        <task id="21" name="Testen" color="#8cb6ce" meeting="false" start="2013-12-05" duration="2" complete="0" expand="true">
             <depend id="23" type="2" difference="0" hardness="Strong"/>
             <depend id="25" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="23" name="Fehlerbehebung" color="#8cb6ce" meeting="false" start="2013-12-11" duration="3" complete="0" expand="true">
+        <task id="23" name="Fehlerbehebung" color="#8cb6ce" meeting="false" start="2013-12-09" duration="4" complete="0" expand="true">
             <depend id="25" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="25" name="Abgabe" color="#8cb6ce" meeting="false" start="2013-12-16" duration="1" complete="0" priority="2" expand="true"/>
+        <task id="25" name="Abgabe" color="#8cb6ce" meeting="false" start="2013-12-13" duration="1" complete="0" priority="2" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Tim" function="SoftwareDevelopment:2" contacts="" phone=""/>
