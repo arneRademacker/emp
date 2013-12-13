@@ -110,7 +110,7 @@ public class MainWindow {
 			{
 				bNaechsterDatensatz = new JButton();
 				panel1.add(bNaechsterDatensatz);
-				bNaechsterDatensatz.setText("Nächster >>>");
+				bNaechsterDatensatz.setText("Naechster >>>");
 				bNaechsterDatensatz.setBounds(228, 235, 213, 23);
 				bNaechsterDatensatz.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -155,7 +155,7 @@ public class MainWindow {
 			{
 				bloeschen = new JButton();
 				panel1.add(bloeschen);
-				bloeschen.setText("Datensatz löschen");
+				bloeschen.setText("Datensatz loeschen");
 				bloeschen.setBounds(12, 491, 189, 23);
 				bloeschen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -190,7 +190,7 @@ public class MainWindow {
 		}
 		{
 			JPanel panel2 = new JPanel();
-			tabLeiste.addTab("Kontakt hinzufügen", null, panel2, null);
+			tabLeiste.addTab("Kontakt hinzufuegen", null, panel2, null);
 			panel2.setLayout(null);
 			{
 				l2Name = new JLabel();
