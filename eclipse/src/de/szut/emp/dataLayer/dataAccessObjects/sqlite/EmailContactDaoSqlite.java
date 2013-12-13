@@ -83,7 +83,8 @@ public class EmailContactDaoSqlite implements IEmailContactDao {
 		}
 		return emailContact;
 	}
-
+	
+	
 	@Override
 	public IEmailContact last() {
 		String query = "SELECT * FROM adressen ORDER BY id ASC";

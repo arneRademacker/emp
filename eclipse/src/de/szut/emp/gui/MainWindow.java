@@ -348,7 +348,7 @@ public class MainWindow {
 
 	private void loeschen(IEmailContact emailContact) {
 		if (JOptionPane.showConfirmDialog(null,
-				"Wollen Sie den Datensatz wirklich löschen?", "Achtung!",
+				"Wollen Sie den Datensatz wirklich loeschen?", "Achtung!",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			IEmailContact contactToDelete = currentEmailContact;
 			IEmailContact contactToSelect = null;
